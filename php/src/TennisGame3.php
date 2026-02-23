@@ -19,16 +19,16 @@ class TennisGame3 implements TennisGame
     public function getScore(): string
     {
         if ($this->score1 < 4 && $this->score2 < 4 && ! ($this->score1 + $this->score2 === 6)) {
-            $s = $this->scoreTypes[$this->score1];
+            $firstPlayerScore = $this->scoreTypes[$this->score1];
 
-            return ($this->isEqual()) ? "{$s}-All" : "{$s}-{$this->scoreTypes[$this->score2]}";
+            return ($this->isEqual()) ? "{$firstPlayerScore}-All" : "{$firstPlayerScore}-{$this->scoreTypes[$this->score2]}";
         }
 
         if ($this->isEqual()) return 'Deuce';
 
 
-        $s = $this->score1 > $this->score2 ? $this->p1N : $this->p2N;
-        return (($this->score1 - $this->score2) * ($this->score1 - $this->score2) === 1) ? "Advantage {$s}" : "Win for {$s}";
+        $firstPlayerScore = $this->score1 > $this->score2 ? $this->p1N : $this->p2N;
+        return (($this->score1 - $this->score2) * ($this->score1 - $this->score2) === 1) ? "Advantage {$firstPlayerScore}" : "Win for {$firstPlayerScore}";
     }
 
     public function wonPoint(string $playerName): void
