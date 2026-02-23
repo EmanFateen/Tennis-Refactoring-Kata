@@ -6,9 +6,9 @@ namespace TennisGame;
 
 class TennisGame3 implements TennisGame
 {
-    private int $p2 = 0;
+    private int $score1 = 0;
 
-    private int $p1 = 0;
+    private int $score2 = 0;
 
     public function __construct(
         private string $p1N,
@@ -18,24 +18,26 @@ class TennisGame3 implements TennisGame
 
     public function getScore(): string
     {
-        if ($this->p1 < 4 && $this->p2 < 4 && ! ($this->p1 + $this->p2 === 6)) {
+        if ($this->score1 < 4 && $this->score2 < 4 && ! ($this->score1 + $this->score2 === 6)) {
             $p = ['Love', 'Fifteen', 'Thirty', 'Forty'];
-            $s = $p[$this->p1];
-            return ($this->p1 === $this->p2) ? "{$s}-All" : "{$s}-{$p[$this->p2]}";
+            $s = $p[$this->score1];
+            return ($this->score1 === $this->score2) ? "{$s}-All" : "{$s}-{$p[$this->score2]}";
         }
-        if ($this->p1 === $this->p2) {
+
+        if ($this->score1 === $this->score2) {
             return 'Deuce';
         }
-        $s = $this->p1 > $this->p2 ? $this->p1N : $this->p2N;
-        return (($this->p1 - $this->p2) * ($this->p1 - $this->p2) === 1) ? "Advantage {$s}" : "Win for {$s}";
+
+        $s = $this->score1 > $this->score2 ? $this->p1N : $this->p2N;
+        return (($this->score1 - $this->score2) * ($this->score1 - $this->score2) === 1) ? "Advantage {$s}" : "Win for {$s}";
     }
 
     public function wonPoint(string $playerName): void
     {
         if ($playerName === 'player1') {
-            $this->p1++;
+            $this->score1++;
         } else {
-            $this->p2++;
+            $this->score2++;
         }
     }
 }
