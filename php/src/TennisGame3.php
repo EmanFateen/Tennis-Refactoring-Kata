@@ -39,6 +39,13 @@ class TennisGame3 implements TennisGame
         if ($playerName === 'player2') $this->secondPlayerScore++;
     }
 
+    private function isNormalScore(): bool
+    {
+        return $this->firstPlayerScore < 4 &&
+            $this->secondPlayerScore < 4 &&
+            !($this->firstPlayerScore + $this->secondPlayerScore === 6);
+    }
+
     private function isDeuce(): bool
     {
         return $this->firstPlayerScore === $this->secondPlayerScore;
@@ -58,12 +65,5 @@ class TennisGame3 implements TennisGame
     private function isAdvantage(): bool
     {
         return ($this->firstPlayerScore - $this->secondPlayerScore) * ($this->firstPlayerScore - $this->secondPlayerScore) === 1;
-    }
-
-    private function isNormalScore(): bool
-    {
-        return $this->firstPlayerScore < 4 &&
-            $this->secondPlayerScore < 4 &&
-            !($this->firstPlayerScore + $this->secondPlayerScore === 6);
     }
 }
