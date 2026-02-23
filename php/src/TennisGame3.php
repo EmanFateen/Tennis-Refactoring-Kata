@@ -20,8 +20,9 @@ class TennisGame3 implements TennisGame
     {
         if ($this->score1 < 4 && $this->score2 < 4 && ! ($this->score1 + $this->score2 === 6)) {
             $firstPlayerScore = $this->scoreTypes[$this->score1];
+            $secondPlayerScore = $this->scoreTypes[$this->score2];
 
-            return ($this->isEqual()) ? "{$firstPlayerScore}-All" : "{$firstPlayerScore}-{$this->scoreTypes[$this->score2]}";
+            return ($this->isEqual()) ? "{$firstPlayerScore}-All" : "{$firstPlayerScore}-{$secondPlayerScore}";
         }
 
         if ($this->isEqual()) return 'Deuce';
