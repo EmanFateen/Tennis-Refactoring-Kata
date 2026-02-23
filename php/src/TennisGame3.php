@@ -22,12 +22,12 @@ class TennisGame3 implements TennisGame
             $firstPlayerScore = $this->scoreTypes[$this->score1];
             $secondPlayerScore = $this->scoreTypes[$this->score2];
 
-            return $this->isEqual() ?
+            return $this->isDeuce() ?
                 "{$firstPlayerScore}-All" :
                 "{$firstPlayerScore}-{$secondPlayerScore}";
         }
 
-        if ($this->isEqual()) return 'Deuce';
+        if ($this->isDeuce()) return 'Deuce';
 
 
         return $this->getWinner();
@@ -39,7 +39,7 @@ class TennisGame3 implements TennisGame
         if ($playerName === 'player2') $this->score2++;
     }
 
-    private function isEqual(): bool
+    private function isDeuce(): bool
     {
         return $this->score1 === $this->score2;
     }
