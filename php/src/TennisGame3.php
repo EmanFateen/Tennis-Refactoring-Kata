@@ -30,8 +30,7 @@ class TennisGame3 implements TennisGame
         if ($this->isEqual()) return 'Deuce';
 
 
-        $winnerName = $this->score1 > $this->score2 ? $this->firstPlayerName : $this->secondPlayerName;
-        return (($this->score1 - $this->score2) * ($this->score1 - $this->score2) === 1) ? "Advantage {$winnerName}" : "Win for {$winnerName}";
+        return $this->getWinner();
     }
 
     public function wonPoint(string $playerName): void
@@ -43,5 +42,16 @@ class TennisGame3 implements TennisGame
     private function isEqual(): bool
     {
         return $this->score1 === $this->score2;
+    }
+
+    private function getWinner(): string
+    {
+        $winnerName = $this->score1 > $this->score2 ?
+            $this->firstPlayerName :
+            $this->secondPlayerName;
+
+        return (($this->score1 - $this->score2) * ($this->score1 - $this->score2) === 1) ?
+            "Advantage {$winnerName}"
+            : "Win for {$winnerName}";
     }
 }
