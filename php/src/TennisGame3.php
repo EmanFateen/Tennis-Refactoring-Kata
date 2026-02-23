@@ -7,7 +7,6 @@ namespace TennisGame;
 class TennisGame3 implements TennisGame
 {
     private int $score1 = 0;
-
     private int $score2 = 0;
 
     public function __construct(
@@ -21,12 +20,11 @@ class TennisGame3 implements TennisGame
         if ($this->score1 < 4 && $this->score2 < 4 && ! ($this->score1 + $this->score2 === 6)) {
             $p = ['Love', 'Fifteen', 'Thirty', 'Forty'];
             $s = $p[$this->score1];
-            return ($this->score1 === $this->score2) ? "{$s}-All" : "{$s}-{$p[$this->score2]}";
+            return ($this->isEqual()) ? "{$s}-All" : "{$s}-{$p[$this->score2]}";
         }
 
-        if ($this->score1 === $this->score2) {
-            return 'Deuce';
-        }
+        if ($this->isEqual()) return 'Deuce';
+
 
         $s = $this->score1 > $this->score2 ? $this->p1N : $this->p2N;
         return (($this->score1 - $this->score2) * ($this->score1 - $this->score2) === 1) ? "Advantage {$s}" : "Win for {$s}";
@@ -36,5 +34,10 @@ class TennisGame3 implements TennisGame
     {
         if ($playerName === 'player1')  $this->score1++;
         if ($playerName === 'player2') $this->score2++;
+    }
+
+    private function isEqual(): bool
+    {
+        return $this->score1 === $this->score2;
     }
 }
