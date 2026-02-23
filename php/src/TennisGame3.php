@@ -18,7 +18,7 @@ class TennisGame3 implements TennisGame
 
     public function getScore(): string
     {
-        if ($this->firstPlayerScore < 4 && $this->secondPlayerScore < 4 && !$this->totalScoreIsSix()) {
+        if ($this->isNormalScore()) {
             $firstPlayerScore = $this->scoreTypes[$this->firstPlayerScore];
             $secondPlayerScore = $this->scoreTypes[$this->secondPlayerScore];
 
@@ -60,8 +60,10 @@ class TennisGame3 implements TennisGame
         return ($this->firstPlayerScore - $this->secondPlayerScore) * ($this->firstPlayerScore - $this->secondPlayerScore) === 1;
     }
 
-    private function totalScoreIsSix(): bool
+    private function isNormalScore(): bool
     {
-        return $this->firstPlayerScore + $this->secondPlayerScore === 6;
+        return $this->firstPlayerScore < 4 &&
+            $this->secondPlayerScore < 4 &&
+            !($this->firstPlayerScore + $this->secondPlayerScore === 6);
     }
 }
