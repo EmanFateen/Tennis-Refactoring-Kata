@@ -50,7 +50,7 @@ class TennisGame3 implements TennisGame
             $this->firstPlayerName :
             $this->secondPlayerName;
 
-        return (($this->score1 - $this->score2) * ($this->score1 - $this->score2) === 1) ?
+        return $this->scoreDiffPowerTwoIsOne() ?
             "Advantage {$winnerName}"
             : "Win for {$winnerName}";
     }
@@ -59,5 +59,10 @@ class TennisGame3 implements TennisGame
     private function totalScoreIsSix(): bool
     {
         return $this->score1 + $this->score2 === 6;
+    }
+
+    private function scoreDiffPowerTwoIsOne(): bool
+    {
+        return ($this->score1 - $this->score2) * ($this->score1 - $this->score2) === 1;
     }
 }
