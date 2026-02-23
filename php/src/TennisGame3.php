@@ -8,6 +8,7 @@ class TennisGame3 implements TennisGame
 {
     private int $score1 = 0;
     private int $score2 = 0;
+    private array $scoreTypes =  ['Love', 'Fifteen', 'Thirty', 'Forty'];
 
     public function __construct(
         private string $p1N,
@@ -18,9 +19,9 @@ class TennisGame3 implements TennisGame
     public function getScore(): string
     {
         if ($this->score1 < 4 && $this->score2 < 4 && ! ($this->score1 + $this->score2 === 6)) {
-            $p = ['Love', 'Fifteen', 'Thirty', 'Forty'];
-            $s = $p[$this->score1];
-            return ($this->isEqual()) ? "{$s}-All" : "{$s}-{$p[$this->score2]}";
+            $s = $this->scoreTypes[$this->score1];
+
+            return ($this->isEqual()) ? "{$s}-All" : "{$s}-{$this->scoreTypes[$this->score2]}";
         }
 
         if ($this->isEqual()) return 'Deuce';
