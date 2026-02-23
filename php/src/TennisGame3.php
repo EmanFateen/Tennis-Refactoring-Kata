@@ -11,8 +11,8 @@ class TennisGame3 implements TennisGame
     private array $scoreTypes =  ['Love', 'Fifteen', 'Thirty', 'Forty'];
 
     public function __construct(
-        private string $p1N,
-        private string $p2N
+        private string $firstPlayerName,
+        private string $secondPlayerName
     ) {
     }
 
@@ -30,7 +30,7 @@ class TennisGame3 implements TennisGame
         if ($this->isEqual()) return 'Deuce';
 
 
-        $winnerName = $this->score1 > $this->score2 ? $this->p1N : $this->p2N;
+        $winnerName = $this->score1 > $this->score2 ? $this->firstPlayerName : $this->secondPlayerName;
         return (($this->score1 - $this->score2) * ($this->score1 - $this->score2) === 1) ? "Advantage {$winnerName}" : "Win for {$winnerName}";
     }
 
