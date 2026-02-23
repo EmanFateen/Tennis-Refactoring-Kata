@@ -22,7 +22,9 @@ class TennisGame3 implements TennisGame
             $firstPlayerScore = $this->scoreTypes[$this->score1];
             $secondPlayerScore = $this->scoreTypes[$this->score2];
 
-            return ($this->isEqual()) ? "{$firstPlayerScore}-All" : "{$firstPlayerScore}-{$secondPlayerScore}";
+            return $this->isEqual() ?
+                "{$firstPlayerScore}-All" :
+                "{$firstPlayerScore}-{$secondPlayerScore}";
         }
 
         if ($this->isEqual()) return 'Deuce';
