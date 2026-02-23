@@ -6,36 +6,64 @@ namespace TennisGame;
 
 class TennisGame3 implements TennisGame
 {
-    private int $p2 = 0;
-
-    private int $p1 = 0;
+    private int $firstPlayerScore = 0;
+    private int $secondPlayerScore = 0;
+    private array $scoreTypes =  ['Love', 'Fifteen', 'Thirty', 'Forty'];
 
     public function __construct(
-        private string $p1N,
-        private string $p2N
+        private string $firstPlayerName,
+        private string $secondPlayerName
     ) {
     }
 
     public function getScore(): string
     {
-        if ($this->p1 < 4 && $this->p2 < 4 && ! ($this->p1 + $this->p2 === 6)) {
-            $p = ['Love', 'Fifteen', 'Thirty', 'Forty'];
-            $s = $p[$this->p1];
-            return ($this->p1 === $this->p2) ? "{$s}-All" : "{$s}-{$p[$this->p2]}";
+        if ($this->isNormalScore()) {
+            $firstPlayerScore = $this->scoreTypes[$this->firstPlayerScore];
+            $secondPlayerScore = $this->scoreTypes[$this->secondPlayerScore];
+
+            return $this->isDeuce() ?
+                "{$firstPlayerScore}-All" :
+                "{$firstPlayerScore}-{$secondPlayerScore}";
         }
-        if ($this->p1 === $this->p2) {
-            return 'Deuce';
-        }
-        $s = $this->p1 > $this->p2 ? $this->p1N : $this->p2N;
-        return (($this->p1 - $this->p2) * ($this->p1 - $this->p2) === 1) ? "Advantage {$s}" : "Win for {$s}";
+
+        if ($this->isDeuce()) return 'Deuce';
+
+
+        return $this->getWinner();
     }
 
     public function wonPoint(string $playerName): void
     {
-        if ($playerName === 'player1') {
-            $this->p1++;
-        } else {
-            $this->p2++;
-        }
+        if ($playerName === 'player1')  $this->firstPlayerScore++;
+        if ($playerName === 'player2') $this->secondPlayerScore++;
+    }
+
+    private function isNormalScore(): bool
+    {
+        return $this->firstPlayerScore < 4 &&
+            $this->secondPlayerScore < 4 &&
+            !($this->firstPlayerScore + $this->secondPlayerScore === 6);
+    }
+
+    private function isDeuce(): bool
+    {
+        return $this->firstPlayerScore === $this->secondPlayerScore;
+    }
+
+    private function getWinner(): string
+    {
+        $winnerName = $this->firstPlayerScore > $this->secondPlayerScore ?
+            $this->firstPlayerName :
+            $this->secondPlayerName;
+
+        return $this->isAdvantage() ?
+            "Advantage {$winnerName}"
+            : "Win for {$winnerName}";
+    }
+
+    private function isAdvantage(): bool
+    {
+        return ($this->firstPlayerScore - $this->secondPlayerScore) * ($this->firstPlayerScore - $this->secondPlayerScore) === 1;
     }
 }
