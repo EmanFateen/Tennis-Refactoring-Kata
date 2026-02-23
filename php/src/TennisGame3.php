@@ -55,14 +55,13 @@ class TennisGame3 implements TennisGame
             : "Win for {$winnerName}";
     }
 
+    private function isAdvantage(): bool
+    {
+        return ($this->score1 - $this->score2) * ($this->score1 - $this->score2) === 1;
+    }
 
     private function totalScoreIsSix(): bool
     {
         return $this->score1 + $this->score2 === 6;
-    }
-
-    private function isAdvantage(): bool
-    {
-        return ($this->score1 - $this->score2) * ($this->score1 - $this->score2) === 1;
     }
 }
