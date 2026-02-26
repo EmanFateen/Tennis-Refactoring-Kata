@@ -23,15 +23,9 @@ class TennisGame7 implements TennisGame {
     {
         $result = "Current score: ";
 
-        if ($this->player1Score === $this->player2Score) {
-            // tie score
-            $result .= match ($this->player1Score) {
-                0 => "Love-All",
-                1 => "Fifteen-All",
-                2 => "Thirty-All",
-                default => "Deuce",
-            };
-        } elseif ($this->player1Score >= 4 || $this->player2Score >= 4) {
+        if ($this->isDeuce()) return $this->calculateIsDeuce();
+
+        elseif ($this->player1Score >= 4 || $this->player2Score >= 4) {
             // end-game score
             if ($this->player1Score - $this->player2Score === 1) {
                 $result .= "Advantage " . $this->player1Name;
@@ -59,6 +53,24 @@ class TennisGame7 implements TennisGame {
             };
         }
 
+        return $result . ", enjoy your game!";
+    }
+
+    private function isDeuce(): bool
+    {
+        return $this->player1Score === $this->player2Score;
+    }
+
+    private function calculateIsDeuce(): string
+    {
+        $result = "Current score: ";
+        // tie score
+        $result .= match ($this->player1Score) {
+            0 => "Love-All",
+            1 => "Fifteen-All",
+            2 => "Thirty-All",
+            default => "Deuce",
+        };
         return $result . ", enjoy your game!";
     }
 }
