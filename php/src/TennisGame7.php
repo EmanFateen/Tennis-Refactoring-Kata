@@ -25,8 +25,8 @@ class TennisGame7 implements TennisGame {
 
     public function wonPoint($playerName): void
     {
-        if ($playerName === "player1") $this->firstPlayer->incrementScore();
-        if ($playerName === "player2") $this->secondPlayer->incrementScore();
+        if ($playerName === $this->firstPlayer->getName()) $this->firstPlayer->incrementScore();
+        if ($playerName === $this->secondPlayer->getName()) $this->secondPlayer->incrementScore();
     }
 
     public function getScore(): string
