@@ -52,20 +52,18 @@ class TennisGame7 implements TennisGame {
 
     private function calculateEndGameScore(): string
     {
-        $result = "Current score: ";
+        $openingText = "Current score: ";
+        $endingText =  ", enjoy your game!";
+        
+        if ($this->firstPlayerScore - $this->secondPlayerScore === 1)
+            return $openingText. "Advantage " . $this->firstPlayerName . $endingText;
+        if ($this->firstPlayerScore - $this->secondPlayerScore === -1)
+            return $openingText. "Advantage " . $this->secondPlayerName . $endingText;
+        if ($this->firstPlayerScore - $this->secondPlayerScore >= 2)
+            return $openingText. "Win for " . $this->firstPlayerName . $endingText;
 
-        // end-game score
-        if ($this->firstPlayerScore - $this->secondPlayerScore === 1) {
-            $result .= "Advantage " . $this->firstPlayerName;
-        } elseif ($this->firstPlayerScore - $this->secondPlayerScore === -1) {
-            $result .= "Advantage " . $this->secondPlayerName;
-        } elseif ($this->firstPlayerScore - $this->secondPlayerScore >= 2) {
-            $result .= "Win for " . $this->firstPlayerName;
-        } else {
-            $result .= "Win for " . $this->secondPlayerName;
-        }
 
-        return $result . ", enjoy your game!";
+        return $openingText. "Win for " . $this->secondPlayerName . $endingText;
     }
 
     private function calculateNormalScore(): string
