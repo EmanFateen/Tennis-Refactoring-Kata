@@ -38,7 +38,7 @@ class TennisGame7 implements TennisGame {
 
         if ($this->isGameOver())
             return $this->displayScore->show(
-                $this->scoreCalculator->endGame($this->firstPlayer, $this->secondPlayer)
+                $this->scoreCalculator->gameOver($this->firstPlayer, $this->secondPlayer)
             );
 
         return $this->displayScore->show(

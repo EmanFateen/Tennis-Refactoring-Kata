@@ -16,7 +16,7 @@ class ScoreCalculator
         };
     }
 
-    public function endGame(Player $firstPlayer, Player $secondPlayer): string
+    public function gameOver(Player $firstPlayer, Player $secondPlayer): string
     {
         if ($this->hasFirstPlayerAdvantage($firstPlayer, $secondPlayer))
             return "Advantage " . $firstPlayer->getName();
