@@ -21,7 +21,7 @@ class TennisGame7 implements TennisGame {
 
     public function getScore(): string
     {
-        if ($this->isDeuce()) return $this->calculateIsDeuce();
+        if ($this->isDeuce()) return $this->calculateDeuceScore();
         if ($this->isEndGame())  return $this->calculateEndGameScore();
 
         return $this->calculateNormalScore();
@@ -32,10 +32,10 @@ class TennisGame7 implements TennisGame {
         return $this->firstPlayerScore === $this->secondPlayerScore;
     }
 
-    private function calculateIsDeuce(): string
+    private function calculateDeuceScore(): string
     {
         $result = "Current score: ";
-        // tie score
+
         $result .= match ($this->firstPlayerScore) {
             0 => "Love-All",
             1 => "Fifteen-All",
