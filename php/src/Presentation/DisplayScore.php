@@ -1,6 +1,6 @@
 <?php
 
-namespace TennisGame\Domain\Service;
+namespace TennisGame\Presentation;
 
 class DisplayScore
 {

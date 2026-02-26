@@ -3,8 +3,8 @@
 namespace TennisGame;
 
 use TennisGame\Domain\Entity\Player;
-use TennisGame\Domain\Service\DisplayScore;
 use TennisGame\Domain\Service\ScoreCalculator;
+use TennisGame\Presentation\DisplayScore;
 
 class TennisGame7 implements TennisGame {
     private Player $firstPlayer;
