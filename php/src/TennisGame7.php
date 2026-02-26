@@ -13,11 +13,9 @@ class TennisGame7 implements TennisGame {
     private DisplayScore $displayScore;
 
     public function __construct($player1Name, $player2Name) {
-        $this->firstPlayer = new Player();
-        $this->firstPlayer->setName($player1Name);
+        $this->firstPlayer = new Player($player1Name);
 
-        $this->secondPlayer = new Player();
-        $this->secondPlayer->setName($player2Name);
+        $this->secondPlayer = new Player($player2Name);
 
         $this->scoreCalculator = new ScoreCalculator();
         $this->displayScore = new DisplayScore();

@@ -7,7 +7,7 @@ class Player
     private string $name;
     private int $score = 0;
 
-    public function setName($name): void
+    public function __construct(string $name)
     {
         $this->name = $name;
     }
