@@ -22,7 +22,7 @@ class TennisGame7 implements TennisGame {
     public function getScore(): string
     {
         if ($this->isDeuce()) return $this->calculateDeuceScore();
-        if ($this->isEndGame())  return $this->calculateEndGameScore();
+        if ($this->isGameOver())  return $this->calculateEndGameScore();
 
         return $this->calculateNormalScore();
     }
@@ -45,7 +45,7 @@ class TennisGame7 implements TennisGame {
         return $result . ", enjoy your game!";
     }
 
-    private function isEndGame(): bool
+    private function isGameOver(): bool
     {
         return $this->firstPlayerScore >= 4 || $this->secondPlayerScore >= 4;
     }
