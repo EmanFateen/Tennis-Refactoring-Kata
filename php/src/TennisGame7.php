@@ -23,7 +23,8 @@ class TennisGame7 implements TennisGame {
     {
         if ($this->isDeuce()) return $this->calculateIsDeuce();
         if ($this->firstPlayerScore >= 4 || $this->secondPlayerScore >= 4)  return $this->calculateEndGameScore();
-        else return $this->calculateNormalScore();
+
+        return $this->calculateNormalScore();
     }
 
     private function isDeuce(): bool
