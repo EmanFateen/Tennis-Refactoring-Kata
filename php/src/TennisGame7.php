@@ -36,22 +36,9 @@ class TennisGame7 implements TennisGame {
             } else {
                 $result .= "Win for " . $this->secondPlayerName;
             }
-        } else {
-            // regular score
-            $result .= match ($this->firstPlayerScore) {
-                0 => "Love",
-                1 => "Fifteen",
-                2 => "Thirty",
-                default => "Forty",
-            };
-            $result .= "-";
-            $result .= match ($this->secondPlayerScore) {
-                0 => "Love",
-                1 => "Fifteen",
-                2 => "Thirty",
-                default => "Forty",
-            };
         }
+        else return $this->calculateNormalScore();
+
 
         return $result . ", enjoy your game!";
     }
@@ -71,6 +58,27 @@ class TennisGame7 implements TennisGame {
             2 => "Thirty-All",
             default => "Deuce",
         };
+        return $result . ", enjoy your game!";
+    }
+
+    private function calculateNormalScore(): string
+    {
+        $result = "Current score: ";
+
+        $result .= match ($this->firstPlayerScore) {
+            0 => "Love",
+            1 => "Fifteen",
+            2 => "Thirty",
+            default => "Forty",
+        };
+        $result .= "-";
+        $result .= match ($this->secondPlayerScore) {
+            0 => "Love",
+            1 => "Fifteen",
+            2 => "Thirty",
+            default => "Forty",
+        };
+
         return $result . ", enjoy your game!";
     }
 }
