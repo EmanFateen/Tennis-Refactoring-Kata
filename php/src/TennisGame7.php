@@ -3,10 +3,10 @@
 namespace TennisGame;
 
 class TennisGame7 implements TennisGame {
-    private $firstPlayerName;
-    private $secondPlayerName;
-    private $firstPlayerScore = 0;
-    private $secondPlayerScore = 0;
+    private string $firstPlayerName;
+    private string $secondPlayerName;
+    private int $firstPlayerScore = 0;
+    private int $secondPlayerScore = 0;
 
     public function __construct($player1Name, $player2Name) {
         $this->firstPlayerName = $player1Name;
