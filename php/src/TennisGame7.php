@@ -54,14 +54,13 @@ class TennisGame7 implements TennisGame {
     {
         $openingText = "Current score: ";
         $endingText =  ", enjoy your game!";
-        
+
         if ($this->firstPlayerScore - $this->secondPlayerScore === 1)
             return $openingText. "Advantage " . $this->firstPlayerName . $endingText;
         if ($this->firstPlayerScore - $this->secondPlayerScore === -1)
             return $openingText. "Advantage " . $this->secondPlayerName . $endingText;
         if ($this->firstPlayerScore - $this->secondPlayerScore >= 2)
             return $openingText. "Win for " . $this->firstPlayerName . $endingText;
-
 
         return $openingText. "Win for " . $this->secondPlayerName . $endingText;
     }
