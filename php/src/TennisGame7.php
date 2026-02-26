@@ -34,15 +34,14 @@ class TennisGame7 implements TennisGame {
 
     private function calculateDeuceScore(): string
     {
-        $result = "Current score: ";
-
-        $result .= match ($this->firstPlayerScore) {
+        $score = match ($this->firstPlayerScore) {
             0 => "Love-All",
             1 => "Fifteen-All",
             2 => "Thirty-All",
             default => "Deuce",
         };
-        return $result . ", enjoy your game!";
+        
+        return $this->wrapScore($score);
     }
 
     private function isGameOver(): bool
@@ -52,41 +51,36 @@ class TennisGame7 implements TennisGame {
 
     private function calculateEndGameScore(): string
     {
-        $openingText = "Current score: ";
-        $endingText =  ", enjoy your game!";
-
         if ($this->hasFirstPlayerAdvantage())
-            return $openingText. "Advantage " . $this->firstPlayerName . $endingText;
+            return $this->wrapScore("Advantage " . $this->firstPlayerName);
         if ($this->hasSecondPlayerAdvantage())
-            return $openingText. "Advantage " . $this->secondPlayerName . $endingText;
+            return $this->wrapScore("Advantage " . $this->secondPlayerName);
 
         if ($this->isFirstPlayerWon())
-            return $openingText. "Win for " . $this->firstPlayerName . $endingText;
+            return $this->wrapScore("Win for " . $this->firstPlayerName);
         if ($this->isSecondPlayerWon())
-            return $openingText. "Win for " . $this->secondPlayerName . $endingText;
+            return $this->wrapScore( "Win for " . $this->secondPlayerName);
 
         return "";
     }
 
     private function calculateNormalScore(): string
     {
-        $result = "Current score: ";
-
-        $result .= match ($this->firstPlayerScore) {
+        $score = match ($this->firstPlayerScore) {
             0 => "Love",
             1 => "Fifteen",
             2 => "Thirty",
             default => "Forty",
         };
-        $result .= "-";
-        $result .= match ($this->secondPlayerScore) {
+        $score .= "-";
+        $score .= match ($this->secondPlayerScore) {
             0 => "Love",
             1 => "Fifteen",
             2 => "Thirty",
             default => "Forty",
         };
 
-        return $result . ", enjoy your game!";
+        return $this->wrapScore($score);
     }
 
     private function hasFirstPlayerAdvantage(): bool
@@ -107,5 +101,10 @@ class TennisGame7 implements TennisGame {
     private function isSecondPlayerWon(): bool
     {
         return $this->secondPlayerScore - $this->firstPlayerScore >= 2;
+    }
+
+    private function wrapScore(string $score): string
+    {
+        return  "Current score: ". $score . ", enjoy your game!";
     }
 }
