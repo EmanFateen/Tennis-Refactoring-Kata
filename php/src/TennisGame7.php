@@ -40,7 +40,7 @@ class TennisGame7 implements TennisGame {
             2 => "Thirty-All",
             default => "Deuce",
         };
-        
+
         return $this->wrapScore($score);
     }
 
@@ -85,17 +85,17 @@ class TennisGame7 implements TennisGame {
 
     private function hasFirstPlayerAdvantage(): bool
     {
-        return $this->firstPlayerScore - $this->secondPlayerScore === 1;
+        return $this->scoreDiff() === 1;
     }
 
     private function hasSecondPlayerAdvantage(): bool
     {
-        return $this->firstPlayerScore - $this->secondPlayerScore === -1;
+        return $this->scoreDiff() === -1;
     }
 
     private function isFirstPlayerWon(): bool
     {
-        return $this->firstPlayerScore - $this->secondPlayerScore >= 2;
+        return $this->scoreDiff() >= 2;
     }
 
     private function isSecondPlayerWon(): bool
@@ -106,5 +106,10 @@ class TennisGame7 implements TennisGame {
     private function wrapScore(string $score): string
     {
         return  "Current score: ". $score . ", enjoy your game!";
+    }
+
+    private function scoreDiff(): int
+    {
+        return $this->firstPlayerScore - $this->secondPlayerScore;
     }
 }
