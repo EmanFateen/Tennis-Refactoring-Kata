@@ -21,26 +21,9 @@ class TennisGame7 implements TennisGame {
 
     public function getScore(): string
     {
-        $result = "Current score: ";
-
         if ($this->isDeuce()) return $this->calculateIsDeuce();
-
-        elseif ($this->firstPlayerScore >= 4 || $this->secondPlayerScore >= 4) {
-            // end-game score
-            if ($this->firstPlayerScore - $this->secondPlayerScore === 1) {
-                $result .= "Advantage " . $this->firstPlayerName;
-            } elseif ($this->firstPlayerScore - $this->secondPlayerScore === -1) {
-                $result .= "Advantage " . $this->secondPlayerName;
-            } elseif ($this->firstPlayerScore - $this->secondPlayerScore >= 2) {
-                $result .= "Win for " . $this->firstPlayerName;
-            } else {
-                $result .= "Win for " . $this->secondPlayerName;
-            }
-        }
+        if ($this->firstPlayerScore >= 4 || $this->secondPlayerScore >= 4)  return $this->calculateEndGameScore();
         else return $this->calculateNormalScore();
-
-
-        return $result . ", enjoy your game!";
     }
 
     private function isDeuce(): bool
@@ -78,6 +61,27 @@ class TennisGame7 implements TennisGame {
             2 => "Thirty",
             default => "Forty",
         };
+
+        return $result . ", enjoy your game!";
+    }
+
+    /**
+     * @return string
+     */
+    public function calculateEndGameScore(): string
+    {
+        $result = "Current score: ";
+
+        // end-game score
+        if ($this->firstPlayerScore - $this->secondPlayerScore === 1) {
+            $result .= "Advantage " . $this->firstPlayerName;
+        } elseif ($this->firstPlayerScore - $this->secondPlayerScore === -1) {
+            $result .= "Advantage " . $this->secondPlayerName;
+        } elseif ($this->firstPlayerScore - $this->secondPlayerScore >= 2) {
+            $result .= "Win for " . $this->firstPlayerName;
+        } else {
+            $result .= "Win for " . $this->secondPlayerName;
+        }
 
         return $result . ", enjoy your game!";
     }
