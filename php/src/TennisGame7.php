@@ -2,15 +2,21 @@
 
 namespace TennisGame;
 
+use TennisGame\Domain\Entity\Player;
+
 class TennisGame7 implements TennisGame {
-    private string $firstPlayerName;
-    private string $secondPlayerName;
     private int $firstPlayerScore = 0;
     private int $secondPlayerScore = 0;
 
+    private Player $firstPlayer;
+    private Player $secondPlayer;
+
     public function __construct($player1Name, $player2Name) {
-        $this->firstPlayerName = $player1Name;
-        $this->secondPlayerName = $player2Name;
+        $this->firstPlayer = new Player();
+        $this->firstPlayer->setName($player1Name);
+
+        $this->secondPlayer = new Player();
+        $this->secondPlayer->setName($player2Name);
     }
 
     public function wonPoint($playerName): void
@@ -52,14 +58,14 @@ class TennisGame7 implements TennisGame {
     private function calculateEndGameScore(): string
     {
         if ($this->hasFirstPlayerAdvantage())
-            return $this->wrapScore("Advantage " . $this->firstPlayerName);
+            return $this->wrapScore("Advantage " . $this->firstPlayer->getName());
         if ($this->hasSecondPlayerAdvantage())
-            return $this->wrapScore("Advantage " . $this->secondPlayerName);
+            return $this->wrapScore("Advantage " . $this->secondPlayer->getName());
 
         if ($this->isFirstPlayerWon())
-            return $this->wrapScore("Win for " . $this->firstPlayerName);
+            return $this->wrapScore("Win for " . $this->firstPlayer->getName());
         if ($this->isSecondPlayerWon())
-            return $this->wrapScore( "Win for " . $this->secondPlayerName);
+            return $this->wrapScore( "Win for " . $this->secondPlayer->getName());
 
         return "";
     }
