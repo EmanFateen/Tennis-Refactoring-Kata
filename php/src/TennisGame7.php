@@ -12,13 +12,17 @@ class TennisGame7 implements TennisGame {
     private ScoreCalculator $scoreCalculator;
     private DisplayScore $displayScore;
 
-    public function __construct($player1Name, $player2Name) {
+    public function __construct(
+        $player1Name, $player2Name,
+        ?ScoreCalculator $scoreCalculator = null,
+        ?DisplayScore $displayScore = null
+    ) {
         $this->firstPlayer = new Player($player1Name);
 
         $this->secondPlayer = new Player($player2Name);
 
-        $this->scoreCalculator = new ScoreCalculator();
-        $this->displayScore = new DisplayScore();
+        $this->scoreCalculator = $scoreCalculator ?? new ScoreCalculator();
+        $this->displayScore = $displayScore ?? new DisplayScore();
     }
 
     public function wonPoint($playerName): void
