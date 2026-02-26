@@ -3,10 +3,13 @@
 namespace TennisGame;
 
 use TennisGame\Domain\Entity\Player;
+use TennisGame\Domain\Service\ScoreCalculator;
 
 class TennisGame7 implements TennisGame {
     private Player $firstPlayer;
     private Player $secondPlayer;
+
+    private ScoreCalculator $scoreCalculator;
 
     public function __construct($player1Name, $player2Name) {
         $this->firstPlayer = new Player();
@@ -14,6 +17,8 @@ class TennisGame7 implements TennisGame {
 
         $this->secondPlayer = new Player();
         $this->secondPlayer->setName($player2Name);
+
+        $this->scoreCalculator = new ScoreCalculator();
     }
 
     public function wonPoint($playerName): void
@@ -24,10 +29,19 @@ class TennisGame7 implements TennisGame {
 
     public function getScore(): string
     {
-        if ($this->isDeuce()) return $this->calculateDeuceScore();
-        if ($this->isGameOver())  return $this->calculateEndGameScore();
+        if ($this->isDeuce())
+            return $this->wrapScore(
+                $this->scoreCalculator->deuce($this->firstPlayer)
+            );
 
-        return $this->calculateNormalScore();
+        if ($this->isGameOver())
+            return $this->wrapScore(
+                $this->scoreCalculator->endGame($this->firstPlayer, $this->secondPlayer)
+            );
+
+        return $this->wrapScore(
+            $this->scoreCalculator->normal($this->firstPlayer, $this->secondPlayer)
+        );
     }
 
     private function isDeuce(): bool
@@ -35,84 +49,16 @@ class TennisGame7 implements TennisGame {
         return $this->firstPlayer->getScore() === $this->secondPlayer->getScore();
     }
 
-    private function calculateDeuceScore(): string
-    {
-        $score = match ($this->firstPlayer->getScore()) {
-            0 => "Love-All",
-            1 => "Fifteen-All",
-            2 => "Thirty-All",
-            default => "Deuce",
-        };
-
-        return $this->wrapScore($score);
-    }
-
     private function isGameOver(): bool
     {
         return $this->firstPlayer->getScore() >= 4 || $this->secondPlayer->getScore() >= 4;
     }
 
-    private function calculateEndGameScore(): string
-    {
-        if ($this->hasFirstPlayerAdvantage())
-            return $this->wrapScore("Advantage " . $this->firstPlayer->getName());
-        if ($this->hasSecondPlayerAdvantage())
-            return $this->wrapScore("Advantage " . $this->secondPlayer->getName());
-
-        if ($this->isFirstPlayerWon())
-            return $this->wrapScore("Win for " . $this->firstPlayer->getName());
-        if ($this->isSecondPlayerWon())
-            return $this->wrapScore( "Win for " . $this->secondPlayer->getName());
-
-        return "";
-    }
-
-    private function calculateNormalScore(): string
-    {
-        $score = match ($this->firstPlayer->getScore()) {
-            0 => "Love",
-            1 => "Fifteen",
-            2 => "Thirty",
-            default => "Forty",
-        };
-        $score .= "-";
-        $score .= match ($this->secondPlayer->getScore()) {
-            0 => "Love",
-            1 => "Fifteen",
-            2 => "Thirty",
-            default => "Forty",
-        };
-
-        return $this->wrapScore($score);
-    }
-
-    private function hasFirstPlayerAdvantage(): bool
-    {
-        return $this->scoreDiff() === 1;
-    }
-
-    private function hasSecondPlayerAdvantage(): bool
-    {
-        return $this->scoreDiff() === -1;
-    }
-
-    private function isFirstPlayerWon(): bool
-    {
-        return $this->scoreDiff() >= 2;
-    }
-
-    private function isSecondPlayerWon(): bool
-    {
-        return $this->secondPlayer->getScore() - $this->firstPlayer->getScore() >= 2;
-    }
 
     private function wrapScore(string $score): string
     {
         return  "Current score: ". $score . ", enjoy your game!";
     }
 
-    private function scoreDiff(): int
-    {
-        return $this->firstPlayer->getScore() - $this->secondPlayer->getScore();
-    }
+
 }
