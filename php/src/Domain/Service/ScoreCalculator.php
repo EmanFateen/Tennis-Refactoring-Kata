@@ -6,18 +6,28 @@ use TennisGame\Domain\Entity\Player;
 
 class ScoreCalculator
 {
+    public function calculate(Player $firstPlayer, Player $secondPlayer): string
+    {
+        if ($this->isTie($firstPlayer, $secondPlayer))
+            $score = $this->tie($firstPlayer);
+        else if ($this->isGameOver($firstPlayer, $secondPlayer))
+            $score = $this->gameOver($firstPlayer, $secondPlayer);
+        else
+            $score = $this->normal($firstPlayer, $secondPlayer);
+        return $score;
+    }
 
-    public function isTie(Player $firstPlayer, Player $secondPlayer): bool
+    private function isTie(Player $firstPlayer, Player $secondPlayer): bool
     {
         return $firstPlayer->getScore() === $secondPlayer->getScore();
     }
 
-    public function isGameOver(Player $firstPlayer, Player $secondPlayer): bool
+    private function isGameOver(Player $firstPlayer, Player $secondPlayer): bool
     {
         return $firstPlayer->getScore() >= 4 || $secondPlayer->getScore() >= 4;
     }
 
-    public function tie(Player $player): string
+    private function tie(Player $player): string
     {
         return match ($player->getScore()) {
             0 => "Love-All",
@@ -27,7 +37,7 @@ class ScoreCalculator
         };
     }
 
-    public function gameOver(Player $firstPlayer, Player $secondPlayer): string
+    private function gameOver(Player $firstPlayer, Player $secondPlayer): string
     {
         if ($this->hasFirstPlayerAdvantage($firstPlayer, $secondPlayer))
             return "Advantage " . $firstPlayer->getName();
@@ -42,7 +52,7 @@ class ScoreCalculator
         return "";
     }
 
-    public function normal(Player $firstPlayer, Player $secondPlayer): string
+    private function normal(Player $firstPlayer, Player $secondPlayer): string
     {
         $score = match ($firstPlayer->getScore()) {
             0 => "Love",

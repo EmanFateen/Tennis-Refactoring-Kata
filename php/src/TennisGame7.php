@@ -33,19 +33,8 @@ class TennisGame7 implements TennisGame {
 
     public function getScore(): string
     {
-        if ($this->scoreCalculator->isTie($this->firstPlayer, $this->secondPlayer))
-            return $this->displayScore->show(
-                $this->scoreCalculator->tie($this->firstPlayer)
-            );
+        $score = $this->scoreCalculator->calculate($this->firstPlayer, $this->secondPlayer);
 
-        if ($this->scoreCalculator->isGameOver($this->firstPlayer, $this->secondPlayer))
-            return $this->displayScore->show(
-                $this->scoreCalculator->gameOver($this->firstPlayer, $this->secondPlayer)
-            );
-
-        return $this->displayScore->show(
-            $this->scoreCalculator->normal($this->firstPlayer, $this->secondPlayer)
-        );
+        return $this->displayScore->show($score);
     }
-
 }
