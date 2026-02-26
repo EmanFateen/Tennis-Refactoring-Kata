@@ -55,14 +55,17 @@ class TennisGame7 implements TennisGame {
         $openingText = "Current score: ";
         $endingText =  ", enjoy your game!";
 
-        if ($this->firstPlayerScore - $this->secondPlayerScore === 1)
+        if ($this->hasFirstPlayerAdvantage())
             return $openingText. "Advantage " . $this->firstPlayerName . $endingText;
-        if ($this->firstPlayerScore - $this->secondPlayerScore === -1)
+        if ($this->hasSecondPlayerAdvantage())
             return $openingText. "Advantage " . $this->secondPlayerName . $endingText;
-        if ($this->firstPlayerScore - $this->secondPlayerScore >= 2)
-            return $openingText. "Win for " . $this->firstPlayerName . $endingText;
 
-        return $openingText. "Win for " . $this->secondPlayerName . $endingText;
+        if ($this->isFirstPlayerWon())
+            return $openingText. "Win for " . $this->firstPlayerName . $endingText;
+        if ($this->isSecondPlayerWon())
+            return $openingText. "Win for " . $this->secondPlayerName . $endingText;
+
+        return "";
     }
 
     private function calculateNormalScore(): string
@@ -84,5 +87,25 @@ class TennisGame7 implements TennisGame {
         };
 
         return $result . ", enjoy your game!";
+    }
+
+    private function hasFirstPlayerAdvantage(): bool
+    {
+        return $this->firstPlayerScore - $this->secondPlayerScore === 1;
+    }
+
+    private function hasSecondPlayerAdvantage(): bool
+    {
+        return $this->firstPlayerScore - $this->secondPlayerScore === -1;
+    }
+
+    private function isFirstPlayerWon(): bool
+    {
+        return $this->firstPlayerScore - $this->secondPlayerScore >= 2;
+    }
+
+    private function isSecondPlayerWon(): bool
+    {
+        return $this->secondPlayerScore - $this->firstPlayerScore >= 2;
     }
 }
