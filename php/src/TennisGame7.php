@@ -33,7 +33,7 @@ class TennisGame7 implements TennisGame {
 
     public function getScore(): string
     {
-        if ($this->isDeuce())
+        if ($this->isTie())
             return $this->displayScore->show(
                 $this->scoreCalculator->deuce($this->firstPlayer)
             );
@@ -48,7 +48,7 @@ class TennisGame7 implements TennisGame {
         );
     }
 
-    private function isDeuce(): bool
+    private function isTie(): bool
     {
         return $this->firstPlayer->getScore() === $this->secondPlayer->getScore();
     }

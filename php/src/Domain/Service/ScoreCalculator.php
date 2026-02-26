@@ -6,7 +6,7 @@ use TennisGame\Domain\Entity\Player;
 
 class ScoreCalculator
 {
-    public function deuce(Player $player): string
+    public function tie(Player $player): string
     {
         return match ($player->getScore()) {
             0 => "Love-All",
