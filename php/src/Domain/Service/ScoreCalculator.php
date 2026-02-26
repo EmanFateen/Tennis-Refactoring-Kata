@@ -6,6 +6,17 @@ use TennisGame\Domain\Entity\Player;
 
 class ScoreCalculator
 {
+
+    public function isTie(Player $firstPlayer, Player $secondPlayer): bool
+    {
+        return $firstPlayer->getScore() === $secondPlayer->getScore();
+    }
+
+    public function isGameOver(Player $firstPlayer, Player $secondPlayer): bool
+    {
+        return $firstPlayer->getScore() >= 4 || $secondPlayer->getScore() >= 4;
+    }
+
     public function tie(Player $player): string
     {
         return match ($player->getScore()) {
@@ -74,4 +85,6 @@ class ScoreCalculator
     {
         return $firstPlayer->getScore() - $secondPlayer->getScore();
     }
+
+
 }
