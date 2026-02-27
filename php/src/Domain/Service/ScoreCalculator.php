@@ -39,15 +39,13 @@ class ScoreCalculator
 
     private function gameOver(Player $firstPlayer, Player $secondPlayer): string
     {
-        if (abs($this->scoreDiff($firstPlayer, $secondPlayer)) === 1)
+        if (abs($firstPlayer->getScore() - $secondPlayer->getScore()) === 1)
             return "Advantage " . $this->getLeadingPlayer($firstPlayer, $secondPlayer);
 
-        if ($this->isFirstPlayerWon($firstPlayer, $secondPlayer))
-            return "Win for " . $firstPlayer->getName();
-        if ($this->isSecondPlayerWon($firstPlayer, $secondPlayer))
-            return  "Win for " . $secondPlayer->getName();
+        return ($firstPlayer->getScore() - $secondPlayer->getScore() >= 2) ?
+             "Win for " . $firstPlayer->getName() :
+             "Win for " . $secondPlayer->getName();
 
-        return "";
     }
 
     private function normal(Player $firstPlayer, Player $secondPlayer): string
@@ -71,24 +69,8 @@ class ScoreCalculator
 
     private function getLeadingPlayer(Player $firstPlayer, Player $secondPlayer): string
     {
-        return $this->scoreDiff($firstPlayer, $secondPlayer) === 1 ?
+        return $firstPlayer->getScore() - $secondPlayer->getScore() === 1 ?
             $firstPlayer->getName() :
             $secondPlayer->getName();
     }
-
-    private function isFirstPlayerWon(Player $firstPlayer, Player $secondPlayer): bool
-    {
-        return $this->scoreDiff($firstPlayer, $secondPlayer) >= 2;
-    }
-
-    private function isSecondPlayerWon(Player $firstPlayer, Player $secondPlayer): bool
-    {
-        return $secondPlayer->getScore() - $firstPlayer->getScore() >= 2;
-    }
-
-    private function scoreDiff(Player $firstPlayer, Player $secondPlayer): int
-    {
-        return $firstPlayer->getScore() - $secondPlayer->getScore();
-    }
-
 }
