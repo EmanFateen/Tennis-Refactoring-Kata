@@ -39,10 +39,8 @@ class ScoreCalculator
 
     private function gameOver(Player $firstPlayer, Player $secondPlayer): string
     {
-        if ($this->hasFirstPlayerAdvantage($firstPlayer, $secondPlayer))
-            return "Advantage " . $firstPlayer->getName();
-        if ($this->hasSecondPlayerAdvantage($firstPlayer, $secondPlayer))
-            return "Advantage " . $secondPlayer->getName();
+        if (abs($this->scoreDiff($firstPlayer, $secondPlayer)) === 1)
+            return "Advantage " . $this->getLeadingPlayer($firstPlayer, $secondPlayer);
 
         if ($this->isFirstPlayerWon($firstPlayer, $secondPlayer))
             return "Win for " . $firstPlayer->getName();
@@ -71,14 +69,11 @@ class ScoreCalculator
         return $score;
     }
 
-    private function hasFirstPlayerAdvantage(Player $firstPlayer, Player $secondPlayer): bool
+    private function getLeadingPlayer(Player $firstPlayer, Player $secondPlayer): string
     {
-        return $this->scoreDiff($firstPlayer, $secondPlayer) === 1;
-    }
-
-    private function hasSecondPlayerAdvantage(Player $firstPlayer, Player $secondPlayer): bool
-    {
-        return $this->scoreDiff($firstPlayer, $secondPlayer) === -1;
+        return $this->scoreDiff($firstPlayer, $secondPlayer) === 1 ?
+            $firstPlayer->getName() :
+            $secondPlayer->getName();
     }
 
     private function isFirstPlayerWon(Player $firstPlayer, Player $secondPlayer): bool
@@ -95,6 +90,5 @@ class ScoreCalculator
     {
         return $firstPlayer->getScore() - $secondPlayer->getScore();
     }
-
 
 }
